@@ -9,10 +9,12 @@
                         <xs:sequence>
                             <xs:element name="broneering" maxOccurs="unbounded">
                                 <xs:complexType>
-                                    <xs:attribute name="telefon" type="xs:string" use="required"/>
-                                    <xs:attribute name="nimi" type="xs:string" use="required"/>
-                                    <xs:attribute name="kellaaeg" type="xs:string" use="required"/>
-                                    <xs:attribute name="teenus" type="xs:string" use="required"/>
+                                    <xs:sequence>
+                                        <xs:element name="telefon" type="xs:string"/>
+                                        <xs:element name="nimi" type="xs:string"/>
+                                        <xs:element name="kellaaeg" type="xs:string"/>
+                                        <xs:element name="teenus" type="xs:string"/>
+                                    </xs:sequence>
                                     <xs:attribute name="autonumber" type="xs:string" use="required"/>
                                 </xs:complexType>
                             </xs:element>

@@ -14,10 +14,10 @@ function search_by_car($car)
             if (strcasecmp((string)$br['autonumber'], $car) === 0) {
                 $result[] = array(
                     'kuupaev'    => (string)$paev['kuupaev'],
-                    'kellaaeg'   => (string)$br['kellaaeg'],
-                    'nimi'       => (string)$br['nimi'],
-                    'telefon'    => (string)$br['telefon'],
-                    'teenus'     => (string)$br['teenus'],
+                    'kellaaeg'   => (string)$br->kellaaeg,
+                    'nimi'       => (string)$br->nimi,
+                    'telefon'    => (string)$br->telefon,
+                    'teenus'     => (string)$br->teenus,
                     'autonumber' => (string)$br['autonumber'],
                 );
             }
@@ -33,13 +33,13 @@ function search_by_phone($phone)
 
     foreach ($xml->paev as $paev) {
         foreach ($paev->broneering as $br) {
-            if ((string)$br['telefon'] === $phone) {
+            if ((string)$br->telefon === $phone) {
                 $result[] = array(
                     'kuupaev'    => (string)$paev['kuupaev'],
-                    'kellaaeg'   => (string)$br['kellaaeg'],
-                    'nimi'       => (string)$br['nimi'],
-                    'telefon'    => (string)$br['telefon'],
-                    'teenus'     => (string)$br['teenus'],
+                    'kellaaeg'   => (string)$br->kellaaeg,
+                    'nimi'       => (string)$br->nimi,
+                    'telefon'    => (string)$br->telefon,
+                    'teenus'     => (string)$br->teenus,
                     'autonumber' => (string)$br['autonumber'],
                 );
             }
@@ -48,26 +48,29 @@ function search_by_phone($phone)
     return $result;
 }
 
-function filter_by_service($service)
+/**
+ * 3. funktsioon:
+ * Loendab, mitu broneeringut on iga kuupäeva kohta.
+ * Tagastab massiivi: [ '2025-12-10' => 2, '2025-12-11' => 1, ... ]
+ */
+function get_booking_counts_by_date()
 {
     $xml = load_xml();
-    $result = array();
+    $counts = array();
 
     foreach ($xml->paev as $paev) {
+        $date = (string)$paev['kuupaev'];
+        if (!isset($counts[$date])) {
+            $counts[$date] = 0;
+        }
+
         foreach ($paev->broneering as $br) {
-            if (stripos((string)$br['teenus'], $service) !== false) {
-                $result[] = array(
-                    'kuupaev'    => (string)$paev['kuupaev'],
-                    'kellaaeg'   => (string)$br['kellaaeg'],
-                    'nimi'       => (string)$br['nimi'],
-                    'telefon'    => (string)$br['telefon'],
-                    'teenus'     => (string)$br['teenus'],
-                    'autonumber' => (string)$br['autonumber'],
-                );
-            }
+            $counts[$date]++;
         }
     }
-    return $result;
+
+    ksort($counts);
+    return $counts;
 }
 
 function render_main_table()
@@ -123,15 +126,29 @@ function render_results_table($rows, $title)
 $results = array();
 $searchTitle = '';
 
+// otsing auto / telefoni järgi
 if (!empty($_GET['car'])) {
     $results = search_by_car(trim($_GET['car']));
     $searchTitle = 'Otsing autonumbri järgi: ' . htmlspecialchars($_GET['car']);
 } elseif (!empty($_GET['phone'])) {
     $results = search_by_phone(trim($_GET['phone']));
     $searchTitle = 'Otsing telefoni järgi: ' . htmlspecialchars($_GET['phone']);
-} elseif (!empty($_GET['service'])) {
-    $results = filter_by_service(trim($_GET['service']));
-    $searchTitle = 'Filtreerimine teenuse järgi: ' . htmlspecialchars($_GET['service']);
+}
+
+// kuupäevade loend broneeringute arvuga
+$dateCounts = get_booking_counts_by_date();
+
+// valitud kuupäev ja selle broneeringute arv
+$selectedDate = '';
+$selectedDateCount = null;
+
+if (!empty($_GET['date'])) {
+    $selectedDate = $_GET['date'];
+    if (isset($dateCounts[$selectedDate])) {
+        $selectedDateCount = $dateCounts[$selectedDate];
+    } else {
+        $selectedDateCount = 0;
+    }
 }
 
 $xmlRaw = file_get_contents(__DIR__ . '/broneeringud.xml');
@@ -158,7 +175,7 @@ $xmlEscaped = htmlspecialchars($xmlRaw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     <?php render_main_table(); ?>
 
     <div class="search-section">
-        <h2>Otsing ja filtreerimine (PHP funktsioonid)</h2>
+        <h2>Otsing ja statistika (PHP funktsioonid)</h2>
         <div class="search-forms">
             <form class="search-card" method="get">
                 <h3>Otsing autonumbri järgi</h3>
@@ -174,11 +191,26 @@ $xmlEscaped = htmlspecialchars($xmlRaw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
                 <button type="submit">Otsi</button>
             </form>
 
+            <!-- kolmas funktsioon: vali kuupäev ja näita broneeringute arvu -->
             <form class="search-card" method="get">
-                <h3>Filtreeri teenuse järgi</h3>
-                <label for="service">Teenus</label>
-                <input type="text" id="service" name="service" placeholder="nt Õlivahetus">
-                <button type="submit">Filtreeri</button>
+                <h3>Broneeringute arv kuupäeva järgi</h3>
+                <label for="date">Vali kuupäev</label>
+                <select id="date" name="date">
+                    <option value="">-- vali kuupäev --</option>
+                    <?php foreach ($dateCounts as $date => $count): ?>
+                        <option value="<?php echo $date; ?>"
+                            <?php if ($date === $selectedDate) echo 'selected'; ?>>
+                            <?php echo $date; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit">Näita</button>
+
+                <?php if ($selectedDate !== ''): ?>
+                    <p class="date-result">
+                        <?php echo $selectedDate . ' — ' . $selectedDateCount . ' broneeringut'; ?>
+                    </p>
+                <?php endif; ?>
             </form>
         </div>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autoteenindus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="broneeringud.xsd">
+
+    <paev kuupaev="2025-12-10">
+        <broneering autonumber="123ABC">
+            <telefon>5551234</telefon>
+            <nimi>Mari Maasikas</nimi>
+            <kellaaeg>10:00</kellaaeg>
+            <teenus>Õlivahetus</teenus>
+        </broneering>
+
+        <broneering autonumber="456DEF">
+            <telefon>5555678</telefon>
+            <nimi>Jüri Kask</nimi>
+            <kellaaeg>11:30</kellaaeg>
+            <teenus>Rehvi vahetus</teenus>
+        </broneering>
+    </paev>
+
+    <paev kuupaev="2025-12-11">
+        <broneering autonumber="789GHI">
+            <telefon>5559999</telefon>
+            <nimi>Anna Kivi</nimi>
+            <kellaaeg>09:15</kellaaeg>
+            <teenus>Diagnostika</teenus>
+        </broneering>
+    </paev>
+
+<paev kuupaev="2025-12-12"><broneering autonumber="212kek"><telefon>23233</telefon><nimi>ffd</nimi><kellaaeg>12:30</kellaaeg><teenus>weew</teenus></broneering><broneering autonumber="008ldl"><telefon>53536363</telefon><nimi>kdkd</nimi><kellaaeg>12:30</kellaaeg><teenus>ididiod</teenus></broneering></paev></autoteenindus>

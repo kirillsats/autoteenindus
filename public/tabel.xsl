@@ -20,10 +20,10 @@
                 <xsl:for-each select="paev/broneering">
                     <tr>
                         <td><xsl:value-of select="../@kuupaev"/></td>
-                        <td><xsl:value-of select="@kellaaeg"/></td>
-                        <td><xsl:value-of select="@nimi"/></td>
-                        <td><xsl:value-of select="@telefon"/></td>
-                        <td><xsl:value-of select="@teenus"/></td>
+                        <td><xsl:value-of select="kellaaeg"/></td>
+                        <td><xsl:value-of select="nimi"/></td>
+                        <td><xsl:value-of select="telefon"/></td>
+                        <td><xsl:value-of select="teenus"/></td>
                         <td><xsl:value-of select="@autonumber"/></td>
                     </tr>
                 </xsl:for-each>

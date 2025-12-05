@@ -52,23 +52,60 @@ h1 {
     margin-bottom: 24px;
 }
 
+/* TABEL – kitsamad veerud */
 .data-table {
     border-collapse: collapse;
     width: 100%;
     margin-top: 12px;
-    font-size: 14px;
+    font-size: 13px;
+    table-layout: fixed;
 }
 
 .data-table th,
 .data-table td {
     border: 1px solid #ddd;
-    padding: 8px 10px;
+    padding: 4px 6px;
     text-align: left;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .data-table thead {
     background: #222;
     color: #fff;
+}
+
+/* veergude laiused */
+.data-table th:nth-child(1),
+.data-table td:nth-child(1) {
+    width: 110px;
+}
+
+.data-table th:nth-child(2),
+.data-table td:nth-child(2) {
+    width: 70px;
+}
+
+.data-table th:nth-child(3),
+.data-table td:nth-child(3) {
+    width: 160px;
+}
+
+.data-table th:nth-child(4),
+.data-table td:nth-child(4) {
+    width: 120px;
+}
+
+.data-table th:nth-child(5),
+.data-table td:nth-child(5) {
+    width: 150px;
+}
+
+.data-table th:nth-child(6),
+.data-table td:nth-child(6) {
+    width: 100px;
 }
 
 .data-table tbody tr:nth-child(even) {
@@ -122,6 +159,17 @@ h1 {
     box-sizing: border-box;
 }
 
+/* select kuupäeva valimiseks */
+.search-card select {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
 .search-card button {
     margin-top: 8px;
     padding: 6px 12px;
@@ -137,6 +185,30 @@ h1 {
     opacity: 0.9;
 }
 
+/* kompaktne vorm lisa-lehel */
+.form-compact {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 10px 14px 12px;
+}
+
+.form-compact label {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.form-compact input[type="text"],
+.form-compact input[type="date"],
+.form-compact input[type="time"] {
+    padding: 4px 6px;
+    font-size: 12px;
+}
+
+.form-compact button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
 .no-results {
     color: #888;
 }
@@ -148,8 +220,6 @@ details {
     padding: 10px 12px;
 }
 
-
-
 details summary {
     cursor: pointer;
     font-weight: 600;
@@ -160,4 +230,10 @@ pre {
     font-size: 12px;
     max-height: 300px;
     overflow: auto;
+}
+
+/* tulemus kuupäeva kohta */
+.date-result {
+    margin-top: 8px;
+    font-size: 13px;
 }
