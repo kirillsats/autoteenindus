@@ -1,0 +1,42 @@
+[
+    {
+        "kuupaev": "2025-12-10",
+        "kellaaeg": "10:00",
+        "nimi": "Mari Maasikas",
+        "telefon": "5551234",
+        "teenus": "Õlivahetus",
+        "autonumber": "123ABC"
+    },
+    {
+        "kuupaev": "2025-12-10",
+        "kellaaeg": "11:30",
+        "nimi": "Jüri Kask",
+        "telefon": "5555678",
+        "teenus": "Rehvi vahetus",
+        "autonumber": "456DEF"
+    },
+    {
+        "kuupaev": "2025-12-11",
+        "kellaaeg": "09:15",
+        "nimi": "Anna Kivi",
+        "telefon": "5559999",
+        "teenus": "Diagnostika",
+        "autonumber": "789GHI"
+    },
+    {
+        "kuupaev": "2025-12-09",
+        "kellaaeg": "12:30",
+        "nimi": "Kirill",
+        "telefon": "3725555555",
+        "teenus": "õlivahetus",
+        "autonumber": "007kir"
+    },
+    {
+        "kuupaev": "2025-12-12",
+        "kellaaeg": "12:30",
+        "nimi": "Kirill",
+        "telefon": "37256336857",
+        "teenus": "õlivahetamine",
+        "autonumber": "007kir"
+    }
+]

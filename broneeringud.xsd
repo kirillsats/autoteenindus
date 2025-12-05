@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="autoteenindus">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paev" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="broneering" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="telefon" type="xs:string" use="required"/>
+                                    <xs:attribute name="nimi" type="xs:string" use="required"/>
+                                    <xs:attribute name="kellaaeg" type="xs:string" use="required"/>
+                                    <xs:attribute name="teenus" type="xs:string" use="required"/>
+                                    <xs:attribute name="autonumber" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="kuupaev" type="xs:date" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
